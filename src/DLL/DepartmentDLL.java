@@ -5,10 +5,19 @@
  */
 package DLL;
 
+import DAL.DepartmentDAL;
+import java.util.ArrayList;
+import Entity.Department;
+
 /**
  *
  * @author Dan
  */
 public class DepartmentDLL {
+    DepartmentDAL dal = new DepartmentDAL();
     
+    public ArrayList<Department> getByID(int id)
+    {
+        return dal.getByID(id);
+    }
 }

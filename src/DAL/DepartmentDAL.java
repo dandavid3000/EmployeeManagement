@@ -5,10 +5,38 @@
  */
 package DAL;
 
+import java.util.ArrayList;
+import Entity.Department;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Dan
  */
-public class DepartmentDAL {
-    
+public class DepartmentDAL extends DataAccessHelper{
+    private final String GET_BY_ID = "select * from Department where depID =?";
+    public ArrayList<Department> getByID(int id)
+    {
+        ArrayList<Department> objs = new ArrayList<>();
+        try {
+            getConnect();
+            PreparedStatement ps = con.prepareStatement(GET_BY_ID);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs!=null&&rs.next())
+            {
+                Department item = new Department();
+                item.setDepID(rs.getInt("depID"));
+                item.setDepName(rs.getString("depName"));
+                objs.add(item);
+            }
+            getClose();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objs;
+    }
+
 }

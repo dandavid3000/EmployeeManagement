@@ -198,7 +198,9 @@ public class frmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmLogin().setVisible(true);
+                frmLogin login = new frmLogin();
+                login.setVisible(true);
+                login.setResizable(false);
             }
         });
     }

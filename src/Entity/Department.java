@@ -10,32 +10,31 @@ package Entity;
  * @author Dan
  */
 public class Department {
-    int prID;
-    String PrName;
+    int depID;
+    String depName;
 
     public Department() {
     }
 
-    public Department(int prID, String PrName) {
-        this.prID = prID;
-        this.PrName = PrName;
+    public Department(int depID, String depName) {
+        this.depID = depID;
+        this.depName = depName;
     }
 
-    public int getPrID() {
-        return prID;
+    public int getDepID() {
+        return depID;
     }
 
-    public void setPrID(int prID) {
-        this.prID = prID;
+    public void setDepID(int depID) {
+        this.depID = depID;
     }
 
-    public String getPrName() {
-        return PrName;
+    public String getDepName() {
+        return depName;
     }
 
-    public void setPrName(String PrName) {
-        this.PrName = PrName;
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
-    
     
 }

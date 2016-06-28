@@ -6,6 +6,8 @@
 package DLL;
 
 import DAL.EmployeesDAL;
+import Entity.Employees;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,4 +19,10 @@ public class EmployeesDLL {
     {
         return dal.getLogin(u, p);
     }
+    
+    public ArrayList<Employees> getALL()
+    {
+        return dal.GetALL();
+    }
+    
 }

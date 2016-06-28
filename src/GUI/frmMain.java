@@ -5,6 +5,16 @@
  */
 package GUI;
 
+import DLL.DepartmentDLL;
+import DLL.EmployeesDLL;
+import DLL.ProjectDLL;
+import Entity.Employees;
+import Entity.Department;
+import Entity.Project;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dan
@@ -14,8 +24,21 @@ public class frmMain extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    
+    EmployeesDLL empDLL = new EmployeesDLL();
+    ArrayList<Employees> listEMP = new ArrayList();
+    
+    DepartmentDLL depDLL = new DepartmentDLL();
+    ArrayList<Department> listDep = new ArrayList<>();
+    
+    ProjectDLL prDLL = new ProjectDLL();
+    ArrayList<Project> listPr = new ArrayList<>();
+    
+    
+    
     public frmMain() {
         initComponents();
+        Biding();
     }
 
     /**
@@ -28,6 +51,27 @@ public class frmMain extends javax.swing.JFrame {
     private void initComponents() {
 
         lblEmployee = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbData = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        txtFullName = new javax.swing.JTextField();
+        txtAge = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtPhone = new javax.swing.JTextField();
+        cbProject = new javax.swing.JComboBox();
+        cbDepartment = new javax.swing.JComboBox();
+        txtPassword = new javax.swing.JPasswordField();
+        btAdd = new javax.swing.JButton();
+        btUpdate = new javax.swing.JButton();
+        btDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -35,25 +79,153 @@ public class frmMain extends javax.swing.JFrame {
         lblEmployee.setForeground(new java.awt.Color(0, 153, 255));
         lblEmployee.setText("Employee Management");
 
+        tbData.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbData);
+
+        jLabel1.setText("User:");
+
+        jLabel2.setText("Password:");
+
+        jLabel3.setText("Full Name:");
+
+        jLabel4.setText("Age:");
+
+        jLabel5.setText("Address:");
+
+        jLabel6.setText("Phone:");
+
+        jLabel7.setText("Department:");
+
+        jLabel8.setText("Project:");
+
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
+            }
+        });
+
+        cbProject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbDepartment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btAdd.setText("Add");
+
+        btUpdate.setText("Update");
+
+        btDelete.setText("Delete");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
-                .addComponent(lblEmployee)
-                .addGap(149, 149, 149))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(lblEmployee))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btAdd)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtPassword)
+                                        .addComponent(txtFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtAge)
+                            .addComponent(txtAddress)
+                            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbProject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(225, 225, 225)
+                        .addComponent(btUpdate)
+                        .addGap(33, 33, 33)
+                        .addComponent(btDelete)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(lblEmployee)
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel6)
+                        .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(cbProject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btUpdate)
+                    .addComponent(btDelete)
+                    .addComponent(btAdd))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -82,16 +254,87 @@ public class frmMain extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+       
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmMain().setVisible(true);
+                frmMain main = new frmMain();
+                main.setVisible(true);
+                main.setResizable(false);
             }
         });
     }
+    
+    public void Biding()
+    {
+        listEMP = empDLL.getALL();
+        Vector clums = new Vector();
+        clums.add("User");
+        clums.add("Pass");
+        clums.add("Full name");
+        clums.add("Age");
+        clums.add("Address");
+        clums.add("Phone");
+        clums.add("Department");
+        clums.add("Project");
+        
+        Vector data = new Vector();
+        
+        for(Employees emp : listEMP ){
+            Vector row = new Vector();
+            row.add(emp.getUsername());
+            row.add(emp.getPassword());
+            row.add(emp.getFullName());
+            row.add(emp.getAge());
+            row.add(emp.getAddress());
+            row.add(emp.getPhone());
+            listDep = depDLL.getByID(emp.getDepID());
+            if(listDep.size()>0)
+            {
+                row.add(listDep.get(0).getDepName());
+            }else
+            {
+                row.add("isEmpty");
+            }
+            listPr = prDLL.getByID(emp.getPrID());
 
+            if(listPr.size()>0)
+            {
+                row.add(listPr.get(0).getPrName());
+
+            }else
+            {
+                row.add("isEmpty");
+            }
+            data.add(row);
+
+        }
+        DefaultTableModel dtm = new DefaultTableModel(data,clums);
+        tbData.setModel(dtm);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdd;
+    private javax.swing.JButton btDelete;
+    private javax.swing.JButton btUpdate;
+    private javax.swing.JComboBox cbDepartment;
+    private javax.swing.JComboBox cbProject;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEmployee;
+    private javax.swing.JTable tbData;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtFullName;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

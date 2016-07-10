@@ -34,4 +34,10 @@ public class EmployeesDLL {
     {
         return dal.DeleteData(u);
     }
+    
+    public boolean update(Employees emp)
+    {
+        return dal.UpdateData(emp);
+    }
+    
 }

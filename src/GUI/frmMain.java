@@ -312,6 +312,38 @@ public class frmMain extends javax.swing.JFrame {
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         // TODO add your handling code here:
+        listDep = depDLL.getAll();
+        listPr = prDLL.getAll();
+        listEMP = empDLL.getALL();
+        
+        //String user = txtUser.getText();
+        String pass = txtPassword.getText();
+        String fullname = txtFullName.getText();
+        String age = txtAge.getText();
+        String address = txtAddress.getText();
+        String phone = txtPhone.getText();
+        int rowDep = cbDepartment.getSelectedIndex();
+        int rowPr = cbProject.getSelectedIndex();
+        int row = tbData.getSelectedRow();
+        int idDep = listDep.get(rowDep).getDepID();
+        int idPr = listPr.get(rowPr).getPrID();
+
+        Employees emp = new Employees();
+            emp.setUsername(listEMP.get(row).getUsername());
+            emp.setPassword(pass);
+            emp.setFullName(fullname);
+            emp.setAge(age);
+            emp.setAddress(address);
+            emp.setPhone(phone);
+            emp.setDepID(idDep);
+            emp.setPrID(idPr);
+
+        if (empDLL.update(emp)) {
+            JOptionPane.showMessageDialog(this, "Update new emp successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Update new emp unsuccessfully!");
+        }
+        Biding();
     }//GEN-LAST:event_btUpdateActionPerformed
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed

@@ -16,7 +16,42 @@ import java.util.ArrayList;
  * @author Dan
  */
 public class ProjectDAL extends DataAccessHelper{
-     private final String GET_BY_ID = "select * from Project where prID =?";
+    private final String GET_BY_ID = "select * from Project where prID =?";
+    private final String GET_ALL = "select * from Project";
+    
+    public ArrayList<Project> getAll()
+    {
+        ArrayList<Project> objs = new ArrayList<>();
+        try {
+            getConnect();
+        
+            PreparedStatement ps = con.prepareCall(GET_ALL);
+            ResultSet rs = ps.executeQuery();
+            if(rs!=null)
+            {
+                while(rs.next())
+                {
+                    Project item = new Project();
+                    item.setPrID(rs.getInt("prID"));
+                    item.setPrName(rs.getString("PrName"));
+                    
+                    objs.add(item);
+                    
+                }
+            }
+        
+        
+        getClose();
+        
+        
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return objs;
+    }
+    
     public ArrayList<Project> getByID(int id)
     {
         ArrayList<Project> objs = new ArrayList<>();

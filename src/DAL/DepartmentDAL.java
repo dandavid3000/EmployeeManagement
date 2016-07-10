@@ -16,6 +16,8 @@ import java.sql.ResultSet;
  */
 public class DepartmentDAL extends DataAccessHelper{
     private final String GET_BY_ID = "select * from Department where depID =?";
+    private final String GET_ALL ="select * from Department";
+    
     public ArrayList<Department> getByID(int id)
     {
         ArrayList<Department> objs = new ArrayList<>();
@@ -39,4 +41,28 @@ public class DepartmentDAL extends DataAccessHelper{
         return objs;
     }
 
+    public ArrayList<Department> getAll()
+    {
+        ArrayList<Department> objs = new ArrayList<>();
+        try {
+            getConnect();
+            PreparedStatement ps = con.prepareCall(GET_ALL);
+            ResultSet rs = ps.executeQuery();
+            if(rs!=null)
+            {
+                while(rs.next())
+                {
+                    Department item = new Department();
+                    item.setDepID(rs.getInt("depID"));
+                    item.setDepName(rs.getString("DepName"));
+                    objs.add(item);
+                }
+                
+            }
+            getClose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objs;
+    }
 }

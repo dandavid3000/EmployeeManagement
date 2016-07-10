@@ -20,4 +20,10 @@ public class DepartmentDLL {
     {
         return dal.getByID(id);
     }
+    
+    public ArrayList<Department> getAll()
+    {
+        return dal.getAll();
+    }
+    
 }

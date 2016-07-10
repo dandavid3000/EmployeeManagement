@@ -25,4 +25,9 @@ public class EmployeesDLL {
         return dal.GetALL();
     }
     
+    public boolean AddData(Employees emp)
+    {
+        return dal.AddData(emp);
+    }
+    
 }

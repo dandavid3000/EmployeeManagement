@@ -19,4 +19,11 @@ public class ProjectDLL {
     {
         return dal.getByID(id);
     }
+    
+    public ArrayList<Project> getAll()
+    {
+        return dal.getAll();
+    }
+    
+    
 }

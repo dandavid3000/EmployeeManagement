@@ -30,4 +30,8 @@ public class EmployeesDLL {
         return dal.AddData(emp);
     }
     
+    public boolean DeleteData(String u)
+    {
+        return dal.DeleteData(u);
+    }
 }

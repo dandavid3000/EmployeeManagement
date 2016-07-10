@@ -19,6 +19,8 @@ public class EmployeesDAL extends DataAccessHelper {
     private final String GET_LOGIN = "select * from Employees where username=? and password=?";
     private final String GET_ALL = "select * from Employees";
     private final String ADD_DATA = "insert into Employees(username,password,FullName,age,address,phone,depID,prID) values (?,?,?,?,?,?,?,?)";
+    private final String REMOVE_DATA = "Delete from Employees where username=?";
+    
     
     public ArrayList<Employees> GetALL(){
         ArrayList<Employees> objs = new ArrayList<>();
@@ -108,5 +110,24 @@ public class EmployeesDAL extends DataAccessHelper {
         
         
         return check;
+    }
+    
+    public boolean DeleteData(String u)
+    {
+        boolean check = false;
+        try {
+            getConnect();
+            PreparedStatement ps = con.prepareStatement(REMOVE_DATA);
+            ps.setString(1, u);
+            int rs = ps.executeUpdate();
+            if(rs>0)
+                check = true;
+            getClose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return check;
+        
     }
 }

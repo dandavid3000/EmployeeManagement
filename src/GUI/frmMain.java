@@ -25,18 +25,15 @@ public class frmMain extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    
     EmployeesDLL empDLL = new EmployeesDLL();
     ArrayList<Employees> listEMP = new ArrayList();
-    
+
     DepartmentDLL depDLL = new DepartmentDLL();
     ArrayList<Department> listDep = new ArrayList<>();
-    
+
     ProjectDLL prDLL = new ProjectDLL();
     ArrayList<Project> listPr = new ArrayList<>();
-    
-    
-    
+
     public frmMain() {
         initComponents();
         Biding();
@@ -93,6 +90,11 @@ public class frmMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDataMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbData);
 
         jLabel1.setText("User:");
@@ -129,8 +131,18 @@ public class frmMain extends javax.swing.JFrame {
         });
 
         btUpdate.setText("Update");
+        btUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUpdateActionPerformed(evt);
+            }
+        });
 
         btDelete.setText("Delete");
+        btDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -239,7 +251,7 @@ public class frmMain extends javax.swing.JFrame {
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         listDep = depDLL.getAll();
         listPr = prDLL.getAll();
-        
+
         String user = txtUser.getText();
         String pass = txtPassword.getText();
         String fullname = txtFullName.getText();
@@ -248,10 +260,10 @@ public class frmMain extends javax.swing.JFrame {
         String phone = txtPhone.getText();
         int rowDep = cbDepartment.getSelectedIndex();
         int rowPr = cbProject.getSelectedIndex();
-        
+
         int idDep = listDep.get(rowDep).getDepID();
         int idPr = listPr.get(rowPr).getPrID();
-        
+
         Employees emp = new Employees();
         emp.setUsername(user);
         emp.setPassword(pass);
@@ -261,19 +273,62 @@ public class frmMain extends javax.swing.JFrame {
         emp.setPhone(phone);
         emp.setDepID(idDep);
         emp.setPrID(idPr);
-        
-        if(empDLL.AddData(emp))
-        {
+
+        if (empDLL.AddData(emp)) {
             JOptionPane.showMessageDialog(this, "Add new emp successfully!");
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Add new emp unsuccessfully!");
 
         }
-        
+
         Biding();
     }//GEN-LAST:event_btAddActionPerformed
+
+    private void tbDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDataMouseClicked
+        int row = tbData.getSelectedRow();
+
+        listEMP = empDLL.getALL();
+        txtUser.setText(listEMP.get(row).getUsername());
+        txtPassword.setText(listEMP.get(row).getPassword());
+        txtFullName.setText(listEMP.get(row).getFullName());
+        txtAge.setText(listEMP.get(row).getAge());
+        txtPhone.setText(listEMP.get(row).getPhone());
+        txtAddress.setText(listEMP.get(row).getAddress());
+
+        listDep = depDLL.getByID(listEMP.get(row).getDepID());
+        listPr = prDLL.getByID(listEMP.get(row).getPrID());
+        if (listPr.size() > 0) {
+            cbProject.setSelectedItem(listPr.get(0).getPrName());
+        } else {
+            cbProject.setSelectedIndex(0);
+        }
+        if (listDep.size() > 0) {
+            cbDepartment.setSelectedItem(listDep.get(0).getDepName());
+        } else {
+            cbProject.setSelectedIndex(0);
+        }
+
+    }//GEN-LAST:event_tbDataMouseClicked
+
+    private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btUpdateActionPerformed
+
+    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
+        // TODO add your handling code here:
+        if (tbData.getSelectedRow() != -1) {
+            int row = tbData.getSelectedRow();
+            listEMP = empDLL.getALL();
+
+            if (empDLL.DeleteData(listEMP.get(row).getUsername())) {
+                JOptionPane.showMessageDialog(this, "Delete new emp successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Delete new emp unsuccessfully!");
+
+            }
+        }
+        Biding();
+    }//GEN-LAST:event_btDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,7 +357,7 @@ public class frmMain extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-       
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -312,9 +367,8 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void Biding()
-    {
+
+    public void Biding() {
         listEMP = empDLL.getALL();
         Vector clums = new Vector();
         clums.add("User");
@@ -325,10 +379,10 @@ public class frmMain extends javax.swing.JFrame {
         clums.add("Phone");
         clums.add("Department");
         clums.add("Project");
-        
+
         Vector data = new Vector();
-        
-        for(Employees emp : listEMP ){
+
+        for (Employees emp : listEMP) {
             Vector row = new Vector();
             row.add(emp.getUsername());
             row.add(emp.getPassword());
@@ -337,49 +391,41 @@ public class frmMain extends javax.swing.JFrame {
             row.add(emp.getAddress());
             row.add(emp.getPhone());
             listDep = depDLL.getByID(emp.getDepID());
-            if(listDep.size()>0)
-            {
+            if (listDep.size() > 0) {
                 row.add(listDep.get(0).getDepName());
-            }else
-            {
+            } else {
                 row.add("isEmpty");
             }
             listPr = prDLL.getByID(emp.getPrID());
 
-            if(listPr.size()>0)
-            {
+            if (listPr.size() > 0) {
                 row.add(listPr.get(0).getPrName());
 
-            }else
-            {
+            } else {
                 row.add("isEmpty");
             }
             data.add(row);
 
         }
-        DefaultTableModel dtm = new DefaultTableModel(data,clums);
+        DefaultTableModel dtm = new DefaultTableModel(data, clums);
         tbData.setModel(dtm);
     }
-    
-    
-    public void BindingDep(){
+
+    public void BindingDep() {
         listDep = depDLL.getAll();
-        for(Department d : listDep)
-        {
+        for (Department d : listDep) {
             cbDepartment.addItem(d.getDepName());
         }
     }
-    
-    public void BindingPr()
-    {
+
+    public void BindingPr() {
         listPr = prDLL.getAll();
-        for(Project p : listPr)
-        {
+        for (Project p : listPr) {
             cbProject.addItem(p.getPrName());
         }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;
     private javax.swing.JButton btDelete;
